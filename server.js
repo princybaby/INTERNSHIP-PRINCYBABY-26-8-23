@@ -78,6 +78,19 @@ app.get('/student',async(req,res)=>{
         }
     })
 
+      // GET all students in a class with standard and division
+app.get('/api/students/:standard/:division', async (req, res) => {
+    const { standard, division } = req.params;
+  
+    try {
+      const students = await Student.find({ 'classId.standard': standard, 'classId.division': division });
+      res.status(200).json(students);
+    } catch (error) {
+      res.status(500).json({ error: 'Unable to retrieve students.' });
+    }
+  });
+  
+
 
     //console.log(req.body);
     //res.send(req.body)
